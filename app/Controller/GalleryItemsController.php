@@ -34,10 +34,20 @@ class GalleryItemsController extends AppController {
         }
     }
 
+    private function _deleteImage($galleryName = NULL, $imageName = NULL) {
+        if (!empty($imageName) && !empty($galleryName)) {
+            if (unlink(WWW_ROOT . 'gallery' . DS . $galleryName . DS . $imageName)) {
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+
     private function _imageUpload($imgTmpName = NULL, $galleryName = NULL, $imageName = NULL) {
         if (!empty($imgTmpName) && !empty($imageName) && !empty($galleryName)) {
-            move_uploaded_file($imgTmpName, WWW_ROOT . 'gallery' . DS . $galleryName . DS . $imageName);
-            return TRUE;
+            if (move_uploaded_file($imgTmpName, WWW_ROOT . 'gallery' . DS . $galleryName . DS . $imageName)) {
+                return TRUE;
+            }
         }
         return FALSE;
     }
@@ -52,7 +62,6 @@ class GalleryItemsController extends AppController {
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            debug($this->request->data);
             if (empty($this->request->data['GalleryItem']['name']['name'])) {
                 $this->request->data['GalleryItem']['name'] = $requestData['GalleryItem']['name'];
                 $mustUpload = FALSE;
@@ -62,11 +71,11 @@ class GalleryItemsController extends AppController {
                 $folder_path = $this->GalleryItem->GalleryCategory->findById($this->request->data['GalleryItem']['gallery_category_id'], array('folder_name'));
                 $mustUpload = TRUE;
             }
-            debug($this->request->data);
-            //die;
             if ($this->GalleryItem->save($this->request->data)) {
-                if ($mustUpload)
+                if ($mustUpload) {
+                    $this->_deleteImage($folder_path['GalleryCategory']['folder_name'], $requestData['GalleryItem']['name']);
                     $this->_imageUpload($uploded_file, $folder_path['GalleryCategory']['folder_name'], $this->request->data['GalleryItem']['name']);
+                }
                 $this->Session->setFlash('تصویر با موفقیت ویرایش شد.', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
             } else {
