@@ -86,4 +86,23 @@ class GalleryItemsController extends AppController {
         }
     }
 
+    public function admin_delete($id = NULL) {
+        $this->GalleryItem->id = $id;
+        $file_name = $this->GalleryItem->findById($id, array('name', 'gallery_category_id'));
+        $folder_name = $this->GalleryItem->GalleryCategory->findById($file_name['GalleryItem']['gallery_category_id'], array('folder_name'));
+        if (!$this->GalleryItem->exists()) {
+            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+        }
+        if ($this->request->is('post')) {
+            if ($this->GalleryItem->delete()) {
+                $file = new File(WWW_ROOT . 'gallery' . DS . $folder_name['GalleryCategory']['folder_name'] . DS . $file_name['GalleryItem']['name']);
+                $file->delete();
+                $this->Session->setFlash('تصویر با موفقیت حذف شد.', 'message', array('type' => 'success'));
+                $this->redirect(array('action' => 'index', 'admin' => TRUE));
+            } else {
+                $this->Session->setFlash('خطای شماره 13 - اطلاعات وارد شده معتبر نمی باشد. لطفا به خطاهای سیستم دقت کرده و مجددا تلاش نمایید.', 'message', array('type' => 'error'));
+            }
+        }
+    }
+
 }
