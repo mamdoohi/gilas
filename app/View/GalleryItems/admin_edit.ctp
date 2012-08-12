@@ -16,7 +16,7 @@ echo $this->Form->create('GalleryItem', array(
 ));
 echo $this->Form->input('title', array('label' => 'عنوان تصویر'));
 echo $this->Form->input('gallery_category_id', array('label' => 'مجموعه گالری'));
-echo $this->Form->input('name', array('label' => 'انتخاب فایل', 'type' => 'file'));
+echo $this->Form->input('image', array('label' => 'انتخاب فایل', 'type' => 'file'));
 echo $this->Form->input('description', array('label' => 'توضیحات'));
 ?>
 <div>

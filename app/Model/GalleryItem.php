@@ -16,6 +16,16 @@ class GalleryItem extends AppModel {
      * @var string
      */
     public $displayField = 'name';
+    var $actsAs = array(
+        'UploadPack.Upload' => array(
+            'image' => array(
+                'styles' => array(
+                    'thumb' => '100x80'
+                ),
+                'path' => ':webroot/imageGallery/:id/:basename_:style.:extension'
+            )
+        )
+    );
 
     /**
      * Validation rules
@@ -32,27 +42,24 @@ class GalleryItem extends AppModel {
             //'last' => false, // Stop validation after this rule
             //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
-        ),
-        'name' => array(
-            'isUniqueName' => array(
-                'rule' => array('isUniqueName'),
-                'message' => 'تصویر دیگری با این نام در این مجموعه وجود دارد. لطفا از صحت فایل آپلودی اطمینان حاصل کرده و مجددا تلاش نمایید',
-            //'allowEmpty' => false,
-            //'required' => false,
-            //'last' => false, // Stop validation after this rule
-            //'on' => 'create', // Limit validation to 'create' or 'update' operations
-            ),
-            'extension' => array(
-                'rule' => array('extension', array('gif', 'jpeg', 'png', 'jpg')),
-                'message' => 'فرمت فایل برای آپلود پشتیبانی نمی شود. لطفا از فرمت های رایج عکس استفاده نمایید.'
-            )
-        ),
+        )
+        ,
         'gallery_category_id' => array(
             'comparison' => array(
                 'rule' => array('comparison', '!=', 0),
                 'message' => 'لطفا یک مجموعه برای تصویر انتخاب نمایید'
             )
         ),
+        'image' => array(
+            'notempty' => array(
+                'rule' => array('attachmentPresence'),
+                'message' => 'انتخاب تصویر الزامی است'
+            ),
+            'maxSize' => array(
+			'rule' => array('attachmentMaxSize', 2096576),
+			'message' => 'اندازه تصویر آپلودی نمی تواند بیشتر از 2 مگابایت باشد'
+		),
+        )
     );
 
     //The Associations below have been created with all possible keys, those that are not needed can be removed
