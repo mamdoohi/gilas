@@ -53,7 +53,8 @@
                                     <li><?php echo $this->Html->link('مدیریت مجموعه گالری تصاویر', array('controller' => 'gallery_categories', 'action' => 'index', 'admin' => TRUE), array('class' => 'active')); ?></li>
                                 </ul>
                             </li>
-                            <li><?php echo $this->Html->link('مدیریت تماس ها', array('controller' => 'contact_details', 'action' => 'index', 'admin' => TRUE)); ?></li>
+                            <li><?php echo $this->Html->link('تماس ها', array('controller' => 'contact_details', 'action' => 'index', 'admin' => TRUE)); ?></li>
+                            <li><?php echo $this->Html->link('اسلایدر', array('controller' => 'slider_items', 'action' => 'index', 'admin' => TRUE)); ?></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                     <div class="user-info">

@@ -117,3 +117,8 @@ tr .mceFirst{
 .caret{
     margin-top: 14px !important;
 }
+
+.table th, .table td{
+    text-align: center;
+    vertical-align: middle;
+}

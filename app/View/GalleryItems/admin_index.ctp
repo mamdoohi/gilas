@@ -8,6 +8,7 @@ echo $this->Html->link('افزودن تصویر', array('action' => 'add', 'admi
 
     <tr>
         <th>ردیف</th>
+        <th>بندانگشتی</th>
         <th>عنوان</th>
         <th>توضیحات</th>
         <th>آپلود کننده</th>
@@ -23,6 +24,7 @@ echo $this->Html->link('افزودن تصویر', array('action' => 'add', 'admi
         ?>
         <tr>
             <td><?php echo $rowNumber; ?></td>
+            <td><?php echo $this->Upload->image($galleryItem, 'GalleryItem.image', array('style' => 'thumb')); ?></td>
             <td><?php echo $galleryItem['GalleryItem']['title']; ?></td>
             <td><?php echo $galleryItem['GalleryItem']['description']; ?></td>
             <td><?php echo $galleryItem['User']['name']; ?></td>

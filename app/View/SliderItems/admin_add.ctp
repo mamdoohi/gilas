@@ -1,6 +1,7 @@
-<legend>افزودن تصویر به گالری</legend>
+<legend>افزودن تصویر به اسلایدر</legend>
+
 <?php
-echo $this->Form->create('GalleryItem', array(
+echo $this->Form->create('SliderItem', array(
     'inputDefaults' => array(
         'error' => array(
             'attributes' => array(
@@ -14,15 +15,15 @@ echo $this->Form->create('GalleryItem', array(
     ),
     'type' => 'file'
 ));
-echo $this->Form->input('title', array('label' => 'عنوان تصویر'));
-echo $this->Form->input('gallery_category_id', array('label' => 'مجموعه گالری'));
-echo $this->Form->input('image', array('label' => 'انتخاب فایل', 'type' => 'file'));
+echo $this->Form->input('link', array('label' => 'نشانی اینترنتی'));
+echo $this->Form->input('title', array('label' => 'عنوان'));
 echo $this->Form->input('description', array('label' => 'توضیحات'));
+echo $this->Form->input('image', array('label' => 'انتخاب تصویر'));
 ?>
 <div>
     <label>منتشر شده</label>
-    <input type="radio" name="data[GalleryItem][published]" value="1" <?php if ($this->Form->value('GalleryItem.published') == 1) echo 'checked=""' ?> /> بله
-    <input type="radio" name="data[GalleryItem][published]" value="0" <?php if ($this->Form->value('GalleryItem.published') == 0) echo 'checked=""' ?> /> خیر
+    <input type="radio" name="data[SliderItem][published]" value="1" <?php if ($this->Form->value('SliderItem.published') == 1) echo 'checked=""' ?> /> بله
+    <input type="radio" name="data[SliderItem][published]" value="0" <?php if ($this->Form->value('SliderItem.published') == 0) echo 'checked=""' ?> /> خیر
 </div>
 <br/>
 <input type="submit" value="ذخیره" class="btn btn-success" />
