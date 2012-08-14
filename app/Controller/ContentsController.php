@@ -34,6 +34,13 @@ class ContentsController extends AppController {
         $this->set('title_for_layout', 'مدیریت مطالب');
         $this->paginate = array('limit' => 20);
         $contents = $this->paginate('Content');
+        
+        for ($i = 0; $i < count($contents); $i++) {
+            $contents[$i]['Content']['commentCount'] = $this->Content->Comment->find('count', array('conditions' => array('content_id' => $contents[$i]['Content']['id'])));
+        }
+        if (empty($contents)) {
+            $this->Session->setFlash('متاسفیم! آیتمی برای نمایش وجود ندارد. برای شروع می توانید از دکمه افزودن استفاده نمایید', 'message', array('type' => 'block'));
+        }
         $this->set(compact('contents'));
     }
 

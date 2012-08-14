@@ -55,7 +55,11 @@ class ContactDetailsController extends AppController {
 
     public function admin_index() {
         $this->set('title_for_layout', 'مدیریت اطلاعات تماس');
-        $this->set('contactDetails', $this->ContactDetail->find('all'));
+        $contactDetails = $this->ContactDetail->find('all');
+        $this->set('contactDetails', $contactDetails);
+        if (empty($contactDetails)) {
+            $this->Session->setFlash('متاسفیم! آیتمی برای نمایش وجود ندارد. برای شروع می توانید از دکمه افزودن استفاده نمایید', 'message', array('type' => 'block'));
+        }
     }
 
 }

@@ -13,6 +13,12 @@ class GalleryCategoriesController extends AppController {
         $this->set('title_for_layout', 'مدیریت مجموعه گالری');
         $this->paginate = array('limit' => 20);
         $galleryCategories = $this->paginate('GalleryCategory');
+        for ($i = 0; $i < count($galleryCategories); $i++) {
+            $galleryCategories[$i]['GalleryCategory']['imageCount'] = $this->_haveImage($galleryCategories[$i]['GalleryCategory']['id']);
+        }
+        if (empty($galleryCategories)) {
+            $this->Session->setFlash('متاسفیم! آیتمی برای نمایش وجود ندارد. برای شروع می توانید از دکمه افزودن استفاده نمایید', 'message', array('type' => 'block'));
+        }
         $this->set(compact('galleryCategories'));
     }
 
@@ -65,9 +71,13 @@ class GalleryCategoriesController extends AppController {
         if (!$this->GalleryCategory->exists()) {
             throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
         }
-        $galleryCategory = $this->GalleryCategory->read();
+        if ($this->_haveImage($id)) {
+            $this->Session->setFlash('خطای شماره 15 – امکان حذف به علت دارا بودن آیتم های زیر مجموعه وجود ندارد. لطفا ابتدا آیتم های زیر مجموعه را حذف نمایید!', 'message', array('type' => 'error'));
+            $this->redirect(array('action' => 'index', 'admin' => TRUE));
+        }
+        //$galleryCategory = $this->GalleryCategory->read();
         if ($this->GalleryCategory->delete()) {
-            rmdir(WWW_ROOT . 'gallery' . DS . $galleryCategory['GalleryCategory']['folder_name']);
+            //rmdir(WWW_ROOT . 'gallery' . DS . $galleryCategory['GalleryCategory']['folder_name']);
             $this->Session->setFlash('مجموعه با موفقیت حذف شد.', 'message', array('type' => 'success'));
             $this->redirect(array('action' => 'index', 'admin' => TRUE));
         }
@@ -99,6 +109,10 @@ class GalleryCategoriesController extends AppController {
             $this->Session->setFlash('مجموعه گالری با موفقیت از حالت انتشار خارج شد', 'message', array('type' => 'success'));
             $this->redirect($this->referer());
         }
+    }
+
+    private function _haveImage($id) {
+        return $this->GalleryCategory->GalleryItem->find('count', array('conditions' => array('gallery_category_id' => $id)));
     }
 
 }

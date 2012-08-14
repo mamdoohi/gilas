@@ -1,5 +1,7 @@
 <?php
+
 App::uses('HttpSocket', 'Network/Http');
+
 /**
  * This file is a part of UploadPack - a plugin that makes file uploads in CakePHP as easy as possible.
  *
@@ -15,11 +17,8 @@ App::uses('HttpSocket', 'Network/Http');
 class UploadBehavior extends ModelBehavior {
 
     private static $__settings = array();
-
     private $toWrite = array();
-
     private $toDelete = array();
-
     private $maxWidthSize = false;
 
     public function setup(&$model, $settings = array()) {
@@ -44,9 +43,9 @@ class UploadBehavior extends ModelBehavior {
                 }
                 $this->_prepareToWriteFiles($model, $field);
                 unset($model->data[$model->name][$field]);
-                $model->data[$model->name][$field.'_file_name'] = $this->toWrite[$field]['name'];
-                $model->data[$model->name][$field.'_file_size'] = $this->toWrite[$field]['size'];
-                $model->data[$model->name][$field.'_content_type'] = $this->toWrite[$field]['type'];
+                $model->data[$model->name][$field . '_file_name'] = $this->toWrite[$field]['name'];
+                $model->data[$model->name][$field . '_file_size'] = $this->toWrite[$field]['size'];
+                $model->data[$model->name][$field . '_content_type'] = $this->toWrite[$field]['type'];
             }
         }
         return true;
@@ -110,8 +109,8 @@ class UploadBehavior extends ModelBehavior {
         $this->toWrite[$field] = $model->data[$model->name][$field];
         // make filename URL friendly by using Cake's Inflector
         $this->toWrite[$field]['name'] =
-            Inflector::slug(substr($this->toWrite[$field]['name'], 0, strrpos($this->toWrite[$field]['name'], '.'))). // filename
-            substr($this->toWrite[$field]['name'], strrpos($this->toWrite[$field]['name'], '.')); // extension
+                Inflector::slug(substr($this->toWrite[$field]['name'], 0, strrpos($this->toWrite[$field]['name'], '.'))) . // filename
+                substr($this->toWrite[$field]['name'], strrpos($this->toWrite[$field]['name'], '.')); // extension
     }
 
     private function _writeFiles(&$model) {
@@ -126,8 +125,8 @@ class UploadBehavior extends ModelBehavior {
                 if (is_dir($destDir) && is_writable($destDir)) {
                     $move = !empty($toWrite['remote']) ? 'rename' : 'move_uploaded_file';
                     if (@$move($toWrite['tmp_name'], $settings['path'])) {
-                        if($this->maxWidthSize) {
-                            $this->_resize($settings['path'], $settings['path'], $this->maxWidthSize.'w', $settings['quality']);
+                        if ($this->maxWidthSize) {
+                            $this->_resize($settings['path'], $settings['path'], $this->maxWidthSize . 'w', $settings['quality']);
                         }
                         foreach ($settings['styles'] as $style => $geometry) {
                             $newSettings = $this->_interpolate($model, $field, $toWrite['name'], $style);
@@ -161,7 +160,7 @@ class UploadBehavior extends ModelBehavior {
             }
         }
         if ($needToRead) {
-            $data = $model->find('first', array('conditions' => array($model->alias.'.'.$model->primaryKey => $model->id), 'fields' => $fields, 'callbacks' => false));
+            $data = $model->find('first', array('conditions' => array($model->alias . '.' . $model->primaryKey => $model->id), 'fields' => $fields, 'callbacks' => false));
         } else {
             $data = $model->data;
         }
@@ -175,11 +174,11 @@ class UploadBehavior extends ModelBehavior {
 
     private function _deleteFiles(&$model) {
         foreach (self::$__settings[$model->name] as $field => $settings) {
-            if (!empty($this->toDelete[$field.'_file_name'])) {
+            if (!empty($this->toDelete[$field . '_file_name'])) {
                 $styles = array_keys($settings['styles']);
                 $styles[] = 'original';
                 foreach ($styles as $style) {
-                    $settings = $this->_interpolate($model, $field, $this->toDelete[$field.'_file_name'], $style);
+                    $settings = $this->_interpolate($model, $field, $this->toDelete[$field . '_file_name'], $style);
                     if (file_exists($settings['path'])) {
                         @unlink($settings['path']);
                     }
@@ -204,7 +203,7 @@ class UploadBehavior extends ModelBehavior {
             'style' => $style,
             'attachment' => Inflector::pluralize($field),
             'hash' => md5((!empty($filename) ? $pathinfo['filename'] : "") . Configure::read('Security.salt'))
-        ), $defaults);
+                ), $defaults);
         $settings = self::$__settings[$modelName][$field];
         $keys = array('path', 'url', 'default_url');
         foreach ($interpolations as $k => $v) {
@@ -221,7 +220,7 @@ class UploadBehavior extends ModelBehavior {
         $pathinfo = pathinfo($filename);
         // PHP < 5.2.0 doesn't include 'filename' key in pathinfo. Let's try to fix this.
         if (empty($pathinfo['filename'])) {
-            $suffix = !empty($pathinfo['extension']) ? '.'.$pathinfo['extension'] : '';
+            $suffix = !empty($pathinfo['extension']) ? '.' . $pathinfo['extension'] : '';
             $pathinfo['filename'] = basename($pathinfo['basename'], $suffix);
         }
         return $pathinfo;
@@ -235,22 +234,22 @@ class UploadBehavior extends ModelBehavior {
         $createHandler = null;
         $outputHandler = null;
         switch (strtolower($pathinfo['extension'])) {
-        case 'gif':
-            $createHandler = 'imagecreatefromgif';
-            $outputHandler = 'imagegif';
-            break;
-        case 'jpg':
-        case 'jpeg':
-            $createHandler = 'imagecreatefromjpeg';
-            $outputHandler = 'imagejpeg';
-            break;
-        case 'png':
-            $createHandler = 'imagecreatefrompng';
-            $outputHandler = 'imagepng';
-            $quality = null;
-            break;
-        default:
-            return false;
+            case 'gif':
+                $createHandler = 'imagecreatefromgif';
+                $outputHandler = 'imagegif';
+                break;
+            case 'jpg':
+            case 'jpeg':
+                $createHandler = 'imagecreatefromjpeg';
+                $outputHandler = 'imagejpeg';
+                break;
+            case 'png':
+                $createHandler = 'imagecreatefrompng';
+                $outputHandler = 'imagepng';
+                $quality = null;
+                break;
+            default:
+                return false;
         }
         if ($src = $createHandler($destFile)) {
             $srcW = imagesx($src);
@@ -259,7 +258,7 @@ class UploadBehavior extends ModelBehavior {
             // determine destination dimensions and resize mode from provided geometry
             if (preg_match('/^\\[[\\d]+x[\\d]+\\]$/', $geometry)) {
                 // resize with banding
-                list($destW, $destH) = explode('x', substr($geometry, 1, strlen($geometry)-2));
+                list($destW, $destH) = explode('x', substr($geometry, 1, strlen($geometry) - 2));
                 $resizeMode = 'band';
             } elseif (preg_match('/^[\\d]+x[\\d]+$/', $geometry)) {
                 // cropped resize (best fit)
@@ -267,40 +266,50 @@ class UploadBehavior extends ModelBehavior {
                 $resizeMode = 'best';
             } elseif (preg_match('/^[\\d]+w$/', $geometry)) {
                 // calculate heigh according to aspect ratio
-                $destW = (int)$geometry-1;
+                $destW = (int) $geometry - 1;
                 $resizeMode = false;
             } elseif (preg_match('/^[\\d]+h$/', $geometry)) {
                 // calculate width according to aspect ratio
-                $destH = (int)$geometry-1;
+                $destH = (int) $geometry - 1;
                 $resizeMode = false;
             } elseif (preg_match('/^[\\d]+l$/', $geometry)) {
                 // calculate shortest side according to aspect ratio
-                if ($srcW > $srcH) $destW = (int)$geometry-1;
-                else $destH = (int)$geometry-1;
+                if ($srcW > $srcH)
+                    $destW = (int) $geometry - 1;
+                else
+                    $destH = (int) $geometry - 1;
                 $resizeMode = false;
             }
-            if (!isset($destW)) $destW = ($destH/$srcH) * $srcW;
-            if (!isset($destH)) $destH = ($destW/$srcW) * $srcH;
+            if (!isset($destW))
+                $destW = ($destH / $srcH) * $srcW;
+            if (!isset($destH))
+                $destH = ($destW / $srcW) * $srcH;
 
             // determine resize dimensions from appropriate resize mode and ratio
             if ($resizeMode == 'best') {
                 // "best fit" mode
                 if ($srcW > $srcH) {
-                    if ($srcH/$destH > $srcW/$destW) $ratio = $destW/$srcW;
-                    else $ratio = $destH/$srcH;
+                    if ($srcH / $destH > $srcW / $destW)
+                        $ratio = $destW / $srcW;
+                    else
+                        $ratio = $destH / $srcH;
                 } else {
-                    if ($srcH/$destH < $srcW/$destW) $ratio = $destH/$srcH;
-                    else $ratio = $destW/$srcW;
+                    if ($srcH / $destH < $srcW / $destW)
+                        $ratio = $destH / $srcH;
+                    else
+                        $ratio = $destW / $srcW;
                 }
-                $resizeW = $srcW*$ratio;
-                $resizeH = $srcH*$ratio;
+                $resizeW = $srcW * $ratio;
+                $resizeH = $srcH * $ratio;
             }
             elseif ($resizeMode == 'band') {
                 // "banding" mode
-                if ($srcW > $srcH) $ratio = $destW/$srcW;
-                else $ratio = $destH/$srcH;
-                $resizeW = $srcW*$ratio;
-                $resizeH = $srcH*$ratio;
+                if ($srcW > $srcH)
+                    $ratio = $destW / $srcW;
+                else
+                    $ratio = $destH / $srcH;
+                $resizeW = $srcW * $ratio;
+                $resizeH = $srcH * $ratio;
             }
             else {
                 // no resize ratio
@@ -310,7 +319,7 @@ class UploadBehavior extends ModelBehavior {
 
             $img = imagecreatetruecolor($destW, $destH);
             imagefill($img, 0, 0, imagecolorallocate($img, 255, 255, 255));
-            imagecopyresampled($img, $src, ($destW-$resizeW)/2, ($destH-$resizeH)/2, 0, 0, $resizeW, $resizeH, $srcW, $srcH);
+            imagecopyresampled($img, $src, ($destW - $resizeW) / 2, ($destH - $resizeH) / 2, 0, 0, $resizeW, $resizeH, $srcW, $srcH);
             $outputHandler($img, $destFile, $quality);
             return true;
         }
@@ -320,7 +329,7 @@ class UploadBehavior extends ModelBehavior {
     public function attachmentMinSize(&$model, $value, $min) {
         $value = array_shift($value);
         if (!empty($value['tmp_name'])) {
-            return (int)$min <= (int)$value['size'];
+            return (int) $min <= (int) $value['size'];
         }
         return true;
     }
@@ -328,7 +337,7 @@ class UploadBehavior extends ModelBehavior {
     public function attachmentMaxSize(&$model, $value, $max) {
         $value = array_shift($value);
         if (!empty($value['tmp_name'])) {
-            return (int)$value['size'] <= (int)$max;
+            return (int) $value['size'] <= (int) $max;
         }
         return true;
     }
@@ -363,10 +372,10 @@ class UploadBehavior extends ModelBehavior {
         }
 
         if (!empty($model->id)) {
-            if (!empty($model->data[$model->alias][$field.'_file_name'])) {
+            if (!empty($model->data[$model->alias][$field . '_file_name'])) {
                 return true;
-            } elseif (!isset($model->data[$model->alias][$field.'_file_name'])) {
-                $existingFile = $model->field($field.'_file_name', array($model->primaryKey => $model->id));
+            } elseif (!isset($model->data[$model->alias][$field . '_file_name'])) {
+                $existingFile = $model->field($field . '_file_name', array($model->primaryKey => $model->id));
                 if (!empty($existingFile)) {
                     return true;
                 }
@@ -374,6 +383,7 @@ class UploadBehavior extends ModelBehavior {
         }
         return false;
     }
+
     public function minWidth(&$model, $value, $minWidth) {
         return $this->_validateDimension($value, 'min', 'x', $minWidth);
     }
@@ -386,7 +396,7 @@ class UploadBehavior extends ModelBehavior {
         $keys = array_keys($value);
         $field = $keys[0];
         $settings = self::$__settings[$model->name][$field];
-        if($settings['resizeToMaxWidth'] && !$this->_validateDimension($value, 'max', 'x', $maxWidth)) {
+        if ($settings['resizeToMaxWidth'] && !$this->_validateDimension($value, 'max', 'x', $maxWidth)) {
             $this->maxWidthSize = $maxWidth;
             return true;
         } else {
@@ -400,30 +410,31 @@ class UploadBehavior extends ModelBehavior {
 
     private function _validateDimension($upload, $mode, $axis, $value) {
         $upload = array_shift($upload);
-        $func = 'images'.$axis;
-        if(!empty($upload['tmp_name'])) {
+        $func = 'images' . $axis;
+        if (!empty($upload['tmp_name'])) {
             $createHandler = null;
-            if($upload['type'] == 'image/jpeg') {
+            if ($upload['type'] == 'image/jpeg') {
                 $createHandler = 'imagecreatefromjpeg';
-            } else if($upload['type'] == 'image/gif') {
+            } else if ($upload['type'] == 'image/gif') {
                 $createHandler = 'imagecreatefromgif';
-            } else if($upload['type'] == 'image/png') {
+            } else if ($upload['type'] == 'image/png') {
                 $createHandler = 'imagecreatefrompng';
             } else {
                 return false;
             }
 
-            if($img = $createHandler($upload['tmp_name'])) {
+            if ($img = $createHandler($upload['tmp_name'])) {
                 switch ($mode) {
-                case 'min':
-                    return $func($img) >= $value;
-                    break;
-                case 'max':
-                    return $func($img) <= $value;
-                    break;
+                    case 'min':
+                        return $func($img) >= $value;
+                        break;
+                    case 'max':
+                        return $func($img) <= $value;
+                        break;
                 }
             }
         }
         return false;
     }
+
 }

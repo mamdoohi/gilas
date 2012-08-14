@@ -22,7 +22,7 @@ class GalleryItem extends AppModel {
                 'styles' => array(
                     'thumb' => '100x80'
                 ),
-                'path' => ':webroot/imageGallery/:id/:basename_:style.:extension'
+                'path' => ':webroot/img/imageGallery/:id/:basename_:style.:extension'
             )
         )
     );
@@ -56,9 +56,13 @@ class GalleryItem extends AppModel {
                 'message' => 'انتخاب تصویر الزامی است'
             ),
             'maxSize' => array(
-			'rule' => array('attachmentMaxSize', 2096576),
-			'message' => 'اندازه تصویر آپلودی نمی تواند بیشتر از 2 مگابایت باشد'
-		),
+                'rule' => array('attachmentMaxSize', 2096576),
+                'message' => 'اندازه تصویر آپلودی نمی تواند بیشتر از 2 مگابایت باشد'
+            ),
+            'extension' => array(
+                'rule' => array('attachmentContentType', array('image/jpeg', 'image/gif', 'image/png', 'image/pjpeg')),
+                'message' => 'فقط مجاز به آپلود تصویر می باشید'
+            )
         )
     );
 

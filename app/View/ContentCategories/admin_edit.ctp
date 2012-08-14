@@ -21,6 +21,12 @@
         echo $this->Form->input('name', array('lasbel' => 'نام مجموعه'));
         ?>
     </fieldset>
+    <div>
+        <label>منتشر شده</label>
+        <input type="radio" name="data[ContentCategory][published]" value="1" <?php if ($this->Form->value('ContentCategory.published') == 1) echo 'checked=""' ?> /> بله
+        <input type="radio" name="data[ContentCategory][published]" value="0" <?php if ($this->Form->value('ContentCategory.published') == 0) echo 'checked=""' ?> /> خیر
+    </div>
+    <br />
     <input type="submit" value="ذخیره" class="btn btn-success" />
     <?php
     echo $this->Html->link('انصراف', array('action' => 'index', 'admin' => TRUE), array('class' => 'btn btn-danger'));

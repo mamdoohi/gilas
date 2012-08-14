@@ -15,18 +15,21 @@ class GalleryItemsController extends AppController {
         $this->set('title_for_layout', 'لیست تصاویر گالری');
         $this->paginate = array('limit' => 20);
         $galleryItems = $this->paginate('GalleryItem');
+        if (empty($galleryItems)) {
+            $this->Session->setFlash('متاسفیم! آیتمی برای نمایش وجود ندارد. برای شروع می توانید از دکمه افزودن استفاده نمایید', 'message', array('type' => 'block'));
+        }
         $this->set(compact('galleryItems'));
     }
 
     public function admin_add() {
         $this->set('title_for_layout', 'افزودن تصویر به گالری');
-        $this->set('galleryCategories', $this->GalleryItem->GalleryCategory->find('list'));
+        $this->set('galleryCategories', $this->GalleryItem->GalleryCategory->find('list', array('conditions' => array('published' => 1))));
         if ($this->request->is('post')) {
             //$uploded_file = $this->request->data['GalleryItem']['name']['tmp_name'];
             //$this->request->data['GalleryItem']['name'] = $this->request->data['GalleryItem']['name']['name'];
             $this->request->data['GalleryItem']['user_id'] = $this->Auth->user('id');
-            //$folder_path = $this->GalleryItem->GalleryCategory->findById($this->request->data['GalleryItem']['gallery_category_id'], array('folder_name'));
-            // $this->request->data['GalleryItem']['folder_name'] = $folder_path['GalleryCategory']['folder_name'];
+            $folder_path = $this->GalleryItem->GalleryCategory->findById($this->request->data['GalleryItem']['gallery_category_id'], array('folder_name'));
+            $this->request->data['GalleryItem']['folder_name'] = $folder_path['GalleryCategory']['folder_name'];
 
             if ($this->GalleryItem->save($this->request->data)) {
                 //$this->_imageUpload($uploded_file, $folder_path['GalleryCategory']['folder_name'], $this->request->data['GalleryItem']['name']);
@@ -99,8 +102,7 @@ class GalleryItemsController extends AppController {
         }
         if ($this->request->is('post')) {
             if ($this->GalleryItem->delete()) {
-                //$file = new File(WWW_ROOT . 'gallery' . DS . $folder_name['GalleryCategory']['folder_name'] . DS . $file_name['GalleryItem']['name']);
-                //$file->delete();
+                rmdir(WWW_ROOT . 'img' . DS . 'imageGallery' . DS . $id);
                 $this->Session->setFlash('تصویر با موفقیت حذف شد.', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
             } else {
