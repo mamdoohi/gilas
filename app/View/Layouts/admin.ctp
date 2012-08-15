@@ -3,10 +3,16 @@
     <head>
         <?php echo $this->Html->charset(); ?>
         <title>
-            <?php echo $title_for_layout; ?>
+            <?php
+            echo SettingsController::getSettings('site_name');
+            echo ' - ';
+            echo $title_for_layout;
+            ?>
         </title>
         <?php
         echo $this->Html->meta('icon');
+        echo $this->Html->meta('description', SettingsController::getSettings('meta_descriptions'));
+        echo $this->Html->meta('keywords', SettingsController::getSettings('meta_tags'));
 
         echo $this->Html->css('back-end/bootstrap/bootstrap-rtl.min');
         echo $this->Html->css('back-end/bootstrap/bootstrap-responsive-rtl.min');
@@ -26,6 +32,7 @@
                     <?php echo $this->Html->link($this->Html->image('back-end/logo-small.png'), array('controller' => 'dashboards', 'action' => 'index', 'admin' => TRUE), array('class' => 'brand', 'escape' => false)); ?>
                     <div class="nav-collapse">
                         <ul class="nav">
+                            <li><?php echo $this->Html->link('تنظیمات', array('controller' => 'settings', 'action' => 'index', 'admin' => TRUE)); ?></li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">مطالب
                                     <b class="caret"></b>

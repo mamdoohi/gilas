@@ -69,20 +69,9 @@ class GalleryItemsController extends AppController {
         }
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            if (empty($this->request->data['GalleryItem']['name']['name'])) {
-                $this->request->data['GalleryItem']['name'] = $requestData['GalleryItem']['name'];
-                $mustUpload = FALSE;
-            } else {
-                $uploded_file = $this->request->data['GalleryItem']['name']['tmp_name'];
-                $this->request->data['GalleryItem']['name'] = $this->request->data['GalleryItem']['name']['name'];
-                $folder_path = $this->GalleryItem->GalleryCategory->findById($this->request->data['GalleryItem']['gallery_category_id'], array('folder_name'));
-                $mustUpload = TRUE;
-            }
+
             if ($this->GalleryItem->save($this->request->data)) {
-                if ($mustUpload) {
-                    $this->_deleteImage($folder_path['GalleryCategory']['folder_name'], $requestData['GalleryItem']['name']);
-                    $this->_imageUpload($uploded_file, $folder_path['GalleryCategory']['folder_name'], $this->request->data['GalleryItem']['name']);
-                }
+
                 $this->Session->setFlash('تصویر با موفقیت ویرایش شد.', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
             } else {

@@ -186,3 +186,4 @@ CakePlugin::load('UploadPack');
 App::uses('Jalali', 'Utility');
 App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
+App::uses('SettingsController', 'Controller');

@@ -816,7 +816,7 @@ class Jalali {
         }
         return false;
     }
-    function dateTime($now = 'now'){
+    public static function dateTime($now = 'now'){
         return self::date('Y-m-d H:i:s',$now);
     }
     function date($type, $maket = "now")

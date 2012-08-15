@@ -5894,3 +5894,229 @@
 2012-08-14 14:05:11 Error: [MissingControllerException] Controller class CssController could not be found.
 #0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2012-08-15 12:15:53 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:15:56 Error: [NotFoundException] خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!
+#0 [internal function]: SettingsController->admin_index()
+#1 D:\xampp\htdocs\gilas\lib\Cake\Controller\Controller.php(485): ReflectionMethod->invokeArgs(Object(SettingsController), Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Routing\Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#3 D:\xampp\htdocs\gilas\lib\Cake\Routing\Dispatcher.php(161): Dispatcher->_invoke(Object(SettingsController), Object(CakeRequest), Object(CakeResponse))
+#4 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2012-08-15 12:15:56 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:17:01 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:17:19 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:18:34 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:18:44 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:20:15 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:29:29 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:30:16 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:30:27 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 12:30:34 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:24:26 Error: Fatal Error (4): syntax error, unexpected T_OBJECT_OPERATOR in [D:\xampp\htdocs\gilas\app\Controller\SettingsController.php, line 39]
+2012-08-15 13:24:26 Error: [FatalErrorException] syntax error, unexpected T_OBJECT_OPERATOR
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 39)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 39, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 39, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:24:26 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:30:08 Error: Fatal Error (4): syntax error, unexpected T_OBJECT_OPERATOR in [D:\xampp\htdocs\gilas\app\Controller\SettingsController.php, line 40]
+2012-08-15 13:30:08 Error: [FatalErrorException] syntax error, unexpected T_OBJECT_OPERATOR
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 40)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'D:\xampp\htdocs...', 40, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'D:\xampp\htdocs...', 40, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:30:08 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:37:04 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:37:20 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:43:10 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:43:48 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:43:54 Error: Fatal Error (1): Class 'SettingsController' not found in [D:\xampp\htdocs\gilas\app\View\Layouts\admin.ctp, line 7]
+2012-08-15 13:43:54 Error: [FatalErrorException] Class 'SettingsController' not found
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 7)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 7, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'Settings...', 'D:\xampp\htdocs...', 7, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:44:11 Error: Fatal Error (1): Class 'SettingsController' not found in [D:\xampp\htdocs\gilas\app\View\Layouts\admin.ctp, line 7]
+2012-08-15 13:44:11 Error: [FatalErrorException] Class 'SettingsController' not found
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 7)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 7, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'Settings...', 'D:\xampp\htdocs...', 7, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:44:16 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:45:58 Error: Fatal Error (1): Class 'SettingsController' not found in [D:\xampp\htdocs\gilas\app\View\Layouts\admin.ctp, line 7]
+2012-08-15 13:45:58 Error: [FatalErrorException] Class 'SettingsController' not found
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 7)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 7, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'Settings...', 'D:\xampp\htdocs...', 7, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:46:43 Error: Fatal Error (1): Class 'SettingsController' not found in [D:\xampp\htdocs\gilas\app\Controller\AppController.php, line 47]
+2012-08-15 13:46:43 Error: [FatalErrorException] Class 'SettingsController' not found
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 47)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 47, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'Settings...', 'D:\xampp\htdocs...', 47, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:48:11 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:48:15 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:48:27 Error: Fatal Error (1): Call to a member function find() on a non-object in [D:\xampp\htdocs\gilas\app\Controller\SettingsController.php, line 40]
+2012-08-15 13:48:27 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 40)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 40, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 40, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:48:37 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:50:36 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 13:52:24 Error: Fatal Error (1): Class 'SettingsController' not found in [D:\xampp\htdocs\gilas\app\Config\routes.php, line 32]
+2012-08-15 13:52:24 Error: [FatalErrorException] Class 'SettingsController' not found
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 32)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 32, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'Settings...', 'D:\xampp\htdocs...', 32, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:55:09 Error: Fatal Error (1): Class 'SettingsController' not found in [D:\xampp\htdocs\gilas\app\Config\routes.php, line 32]
+2012-08-15 13:55:09 Error: [FatalErrorException] Class 'SettingsController' not found
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 32)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 32, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'Settings...', 'D:\xampp\htdocs...', 32, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:55:38 Error: Fatal Error (1): Class 'SettingsController' not found in [D:\xampp\htdocs\gilas\app\Config\routes.php, line 2]
+2012-08-15 13:55:38 Error: [FatalErrorException] Class 'SettingsController' not found
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 2)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 2, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'Settings...', 'D:\xampp\htdocs...', 2, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 13:56:35 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:01:59 Error: Fatal Error (1): Call to a member function find() on a non-object in [D:\xampp\htdocs\gilas\app\Controller\SettingsController.php, line 40]
+2012-08-15 14:01:59 Error: [FatalErrorException] Call to a member function find() on a non-object
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 40)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'D:\xampp\htdocs...', 40, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'D:\xampp\htdocs...', 40, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 14:02:14 Error: Fatal Error (1): Class 'SettingsController' not found in [D:\xampp\htdocs\gilas\app\Config\routes.php, line 2]
+2012-08-15 14:02:14 Error: [FatalErrorException] Class 'SettingsController' not found
+#0 D:\xampp\htdocs\gilas\lib\Cake\Error\ErrorHandler.php(162): ErrorHandler::handleFatalError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 2)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'Settings...', 'D:\xampp\htdocs...', 2, Array)
+#2 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'Settings...', 'D:\xampp\htdocs...', 2, Array)
+#3 D:\xampp\htdocs\gilas\lib\Cake\Core\App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2012-08-15 14:05:24 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:06:54 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:06:57 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:08:54 Error: [MissingControllerException] Controller class AdminController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:09:39 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:09:51 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:09:54 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:09:56 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:10:09 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:10:12 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:10:22 Error: [MissingControllerException] Controller class AdminController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:10:26 Error: [MissingControllerException] Controller class GlAdminController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:10:33 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:14:08 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:16:08 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:16:44 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:20:12 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-08-15 14:21:00 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 D:\xampp\htdocs\gilas\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Routes configuration
  *
@@ -28,7 +27,8 @@
  */
 //Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 Router::connect('/', array('controller' => 'contents', 'action' => 'index'));
-Router::connect('/admin', array('controller' => 'dashboards', 'action' => 'index', 'admin' => TRUE));
+//Router::connect('/admin', array('controller' => 'dashboards', 'action' => 'index', 'admin' => TRUE));
+Router::connect('/'.SettingsController::getSettings('admin_address'), array('controller' => 'dashboards', 'action' => 'index', 'admin' => TRUE));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
