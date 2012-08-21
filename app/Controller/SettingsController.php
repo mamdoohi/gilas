@@ -15,12 +15,15 @@
  * @property Setting $Setting
  */
 class SettingsController extends AppController {
-
+    
+    // use for caching fetched settings
+    private static $__cachedSetting = array();
+    
     public function admin_index() {
         $this->set('title_for_layout', 'ویرایش تنظیمات سیستم');
         $this->Setting->id = 1;
         if (!$this->Setting->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['Setting']['modified'] = Jalali::dateTime();
@@ -28,18 +31,37 @@ class SettingsController extends AppController {
                 $this->Session->setFlash('تنظیمات با موفقیت ذخیره شد.', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
             } else {
-                $this->Session->setFlash('خطای شماره 13 - اطلاعات وارد شده معتبر نمی باشد. لطفا به خطاهای سیستم دقت کرده و مجددا تلاش نمایید.', 'message', array('type' => 'error'));
+                $this->Session->setFlash(SettingsController::read('Error.Code-13'), 'message', array('type' => 'error'));
             }
         } else {
             $this->request->data = $this->Setting->read();
         }
     }
-
-    public static function getSettings($name) {
+    
+    public static function read($name) {
+        // process parameter
+        $sectionWithKey = String::tokenize($name,'.');
+        $section = array_shift($sectionWithKey);
+        $key = implode('.',$sectionWithKey);
+        
+        if(!empty(self::$__cachedSetting[$section])){
+            return self::$__cachedSetting[$section][$key];
+        }
+        
         $_this = new SettingsController();
         $_this->constructClasses();
-        $option = $_this->Setting->find('first', array('fields' => $name));
-        return $option['Setting'][$name];
+        
+        $settings = $_this->Setting->find('all', array(
+            'conditions' => array(
+                'section' => $section,
+            ),
+        ));
+        if($settings){
+            foreach($settings as $setting){
+                self::$__cachedSetting[$section][$setting['Setting']['key']] = $setting['Setting']['value'];
+            }
+        }
+        return self::$__cachedSetting[$section][$key];
     }
 
 }

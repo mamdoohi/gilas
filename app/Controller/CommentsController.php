@@ -49,11 +49,11 @@ class CommentsController extends AppController {
 
     public function admin_publish_comment($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Comment->id = $id;
         if (!$this->Comment->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->Comment->saveField('published', 1)) {
             $this->Session->setFlash('نظر با موفقیت منتشر شد.', 'message', array('type' => 'success'));
@@ -63,11 +63,11 @@ class CommentsController extends AppController {
 
     public function admin_unpublish_comment($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Comment->id = $id;
         if (!$this->Comment->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->Comment->saveField('published', 0)) {
             $this->Session->setFlash('نظر با موفقیت از حالت انتشار خارج شد.', 'message', array('type' => 'success'));
@@ -77,11 +77,11 @@ class CommentsController extends AppController {
 
     public function admin_delete($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Comment->id = $id;
         if (!$this->Comment->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->Comment->delete()) {
             $this->Session->setFlash('نظر با موفقیت حذف شد.', 'message', array('type' => 'success'));

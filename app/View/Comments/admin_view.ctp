@@ -6,7 +6,7 @@
 </legend>
 
 <?php
-echo $this->Html->script('back-end/bootstrap/jquery.simplemodal');
+echo $this->Html->script('modal');
 echo $this->Comment->showComments($comments);
 ?>
 

@@ -16,7 +16,7 @@ class ContactDetailsController extends AppController {
                 $this->Session->setFlash('اطلاعات تماس با موفقیت ذخیره شد.', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
             } else {
-                $this->Session->setFlash('خطای شماره 13 - اطلاعات وارد شده معتبر نمی باشد. لطفا به خطاهای سیستم دقت کرده و مجددا تلاش نمایید.', 'message', array('type' => 'error'));
+                $this->Session->setFlash(SettingsController::read('Error.Code-13'), 'message', array('type' => 'error'));
             }
         }
     }
@@ -25,14 +25,14 @@ class ContactDetailsController extends AppController {
         $this->set('title_for_layout', 'ویرایش اطلاعات تماس');
         $this->ContactDetail->id = $id;
         if (!$this->ContactDetail->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->ContactDetail->save($this->request->data)) {
                 $this->Session->setFlash('اطلاعات تماس با موفقیت ویرایش شد.', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
             } else {
-                $this->Session->setFlash('خطای شماره 13 - اطلاعات وارد شده معتبر نمی باشد. لطفا به خطاهای سیستم دقت کرده و مجددا تلاش نمایید.', 'message', array('type' => 'error'));
+                $this->Session->setFlash(SettingsController::read('Error.Code-13'), 'message', array('type' => 'error'));
             }
         } else {
             $this->request->data = $this->ContactDetail->read();
@@ -41,11 +41,11 @@ class ContactDetailsController extends AppController {
 
     public function admin_delete($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->ContactDetail->id = $id;
         if (!$this->ContactDetail->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->ContactDetail->delete()) {
             $this->Session->setFlash('اطلاعات تماس با موفیت حذف شد.', 'message', array('type' => 'success'));
@@ -61,5 +61,14 @@ class ContactDetailsController extends AppController {
             $this->Session->setFlash('متاسفیم! آیتمی برای نمایش وجود ندارد. برای شروع می توانید از دکمه افزودن استفاده نمایید', 'message', array('type' => 'block'));
         }
     }
-
+    
+    public function admin_getLinkItem(){
+        $conditions = array();
+        if(!empty($this->request->query['q'])){
+            $conditions['ContactDetail.title LIKE'] = "%{$this->request->query['q']}%";
+        }
+        $this->paginate['conditions'] = $conditions;
+        $this->paginate['recursive'] = -1;
+        $this->set('contactDetails',$this->paginate());
+    }
 }

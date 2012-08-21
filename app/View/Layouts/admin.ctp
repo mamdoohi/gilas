@@ -4,20 +4,20 @@
         <?php echo $this->Html->charset(); ?>
         <title>
             <?php
-            echo SettingsController::getSettings('site_name');
+            echo SettingsController::read('Site.Name');
             echo ' - ';
             echo $title_for_layout;
             ?>
         </title>
         <?php
         echo $this->Html->meta('icon');
-        echo $this->Html->meta('description', SettingsController::getSettings('meta_descriptions'));
-        echo $this->Html->meta('keywords', SettingsController::getSettings('meta_tags'));
+        echo $this->Html->meta('description', SettingsController::read('Site.Description'));
+        echo $this->Html->meta('keywords', SettingsController::read('Site.Keywords'));
 
         echo $this->Html->css('back-end/bootstrap/bootstrap-rtl.min');
         echo $this->Html->css('back-end/bootstrap/bootstrap-responsive-rtl.min');
         echo $this->Html->css('back-end/bootstrap/template');
-        echo $this->Html->script('back-end/bootstrap/jquery');
+        echo $this->Html->script('jquery');
         echo $this->Html->script('back-end/bootstrap/bootstrap');
 
         echo $this->fetch('meta');
@@ -61,7 +61,29 @@
                                 </ul>
                             </li>
                             <li><?php echo $this->Html->link('تماس ها', array('controller' => 'contact_details', 'action' => 'index', 'admin' => TRUE)); ?></li>
-                            <li><?php echo $this->Html->link('اسلایدر', array('controller' => 'slider_items', 'action' => 'index', 'admin' => TRUE)); ?></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">منو
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><?php echo $this->Html->link('مدیریت نوع منو', array('controller' => 'menuTypes', 'action' => 'index', 'admin' => TRUE)); ?></li>
+                                    
+                                    <?php
+                                    $menus = $this->requestAction(array('controller' => 'menuTypes','action' => 'getTypes','admin' => TRUE));
+                                    if($menus){
+                                        echo $this->Html->tag('li','',array('class' => 'divider'));
+                                        foreach($menus as $menuId => $menu){
+                                            echo '<li>';
+                                            echo $this->Html->link($menu, array('controller' => 'menus', 'action' => 'index', 'admin' => TRUE,'menu_type_id' => $menuId));
+                                            echo '</li>';
+                                        }
+                                    }
+                                    ?>
+                                    <li class="divider"></li>
+                                    <li><?php echo $this->Html->link('مدیریت منو', array('controller' => 'menus', 'action' => 'index', 'admin' => TRUE)); ?></li>
+                                </ul>
+                            </li>
+                            <li><?php echo $this->Html->link('اسلایدر', array('controller' => 'SliderItems', 'action' => 'index', 'admin' => TRUE)); ?></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                     <div class="user-info">
@@ -78,7 +100,7 @@
                 <div id="flash_message"><?php echo $this->Session->flash('flash', array('element' => 'message_1')); ?></div>
             </div>
             <div id="content"><?php echo $this->fetch('content'); ?></div>
-            <div id="footer"><pre><?php echo $this->element('sql_dump'); ?></pre></div>
+           <!-- <div id="footer"><pre><?php echo $this->element('sql_dump'); ?></pre></div> -->
         </div>
     </body>
 </html>

@@ -42,14 +42,7 @@ if (!empty($galleryCategories)) {
         endforeach;
         ?>
     </table>
-    <br />
-    <div class="container">
-        <div class="btn-group">
-            <?php
-            echo $this->Paginator->numbers(array('tag' => 'span', 'class' => 'btn', 'separator' => NULL, 'first' => 'ابتدا', 'last' => 'انتها'));
-            ?>
-        </div>
-    </div>
-    <?php
+    <?php 
 }
 ?>
+<?php echo $this->Filter->limitAndPaginate(); ?>

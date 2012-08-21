@@ -8,6 +8,7 @@ App::uses('AppController', 'Controller');
  * @property Content $Content
  */
 class ContentsController extends AppController {
+    
 
     public function admin_add() {
         $this->helpers = array('TinyMCE.TinyMCE');
@@ -25,14 +26,13 @@ class ContentsController extends AppController {
                 $this->Session->setFlash('مطلب با موفقیت ذخیره شد.', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
             } else {
-                $this->Session->setFlash('خطای شماره 13 - اطلاعات وارد شده معتبر نمی باشد. لطفا به خطاهای سیستم دقت کرده و مجددا تلاش نمایید.', 'message', array('type' => 'error'));
+                $this->Session->setFlash(SettingsController::read('Error.Code-13'), 'message', array('type' => 'error'));
             }
         }
     }
 
     public function admin_index() {
         $this->set('title_for_layout', 'مدیریت مطالب');
-        $this->paginate = array('limit' => 20);
         $contents = $this->paginate('Content');
         
         for ($i = 0; $i < count($contents); $i++) {
@@ -46,11 +46,11 @@ class ContentsController extends AppController {
 
     public function admin_delete($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Content->id = $id;
         if (!$this->Content->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
 
         if ($this->Content->delete()) {
@@ -65,7 +65,7 @@ class ContentsController extends AppController {
         $this->set('contentCategories', $this->Content->ContentCategory->generateTreeList());
         $this->Content->id = $id;
         if (!$this->Content->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['Content']['modified'] = Jalali::dateTime();
@@ -77,7 +77,7 @@ class ContentsController extends AppController {
                 $this->Session->setFlash('مطلب با موفقیت ویرایش شد.', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
             } else {
-                $this->Session->setFlash('خطای شماره 13 - اطلاعات وارد شده معتبر نمی باشد. لطفا به خطاهای سیستم دقت کرده و مجددا تلاش نمایید.', 'message', array('type' => 'error'));
+                $this->Session->setFlash(SettingsController::read('Error.Code-13'), 'message', array('type' => 'error'));
             }
         } else {
             $this->request->data = $this->Content->read();
@@ -103,11 +103,11 @@ class ContentsController extends AppController {
 
     public function admin_publish_content($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Content->id = $id;
         if (!$this->Content->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->Content->saveField('published', 1)) {
             $this->Session->setFlash('مطلب با موفقیت منتشر شد.', 'message', array('type' => 'success'));
@@ -117,11 +117,11 @@ class ContentsController extends AppController {
 
     public function admin_unpublish_content($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Content->id = $id;
         if (!$this->Content->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->Content->saveField('published', 0)) {
             $this->Session->setFlash('مطلب با موفقیت از حالت انتشار خارج شد.', 'message', array('type' => 'success'));
@@ -131,11 +131,11 @@ class ContentsController extends AppController {
 
     public function admin_add_content_to_frontpage($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Content->id = $id;
         if (!$this->Content->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->Content->saveField('frontpage', 1)) {
             $this->Session->setFlash('مطلب با موفقیت به صفحه اصلی اضافه شد.', 'message', array('type' => 'success'));
@@ -145,11 +145,11 @@ class ContentsController extends AppController {
 
     public function admin_remove_content_from_frontpage($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Content->id = $id;
         if (!$this->Content->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->Content->saveField('frontpage', 0)) {
             $this->Session->setFlash('مطلب با موفقیت از صفحه اصلی حذف شد.', 'message', array('type' => 'success'));
@@ -159,11 +159,11 @@ class ContentsController extends AppController {
 
     public function admin_dis_allow_comment_to_content($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Content->id = $id;
         if (!$this->Content->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->Content->saveField('allow_comment', 0)) {
             $this->Session->setFlash('نظر دهی به مطلب با موفقیت غیرفعال شد.', 'message', array('type' => 'success'));
@@ -173,16 +173,26 @@ class ContentsController extends AppController {
 
     public function admin_allow_comment_to_content($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->Content->id = $id;
         if (!$this->Content->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->Content->saveField('allow_comment', 1)) {
             $this->Session->setFlash('نظر دهی به مطلب با موفقیت فعال شد.', 'message', array('type' => 'success'));
             $this->redirect($this->referer());
         }
+    }
+    
+    public function admin_getLinkItem(){
+        $conditions = array('Content.published' => true);
+        if(!empty($this->request->query['q'])){
+            $conditions['Content.title LIKE'] = "%{$this->request->query['q']}%";
+        }
+        $this->paginate['conditions'] = $conditions;
+        $this->paginate['recursive'] = -1;
+        $this->set('contents',$this->paginate());
     }
 
 }

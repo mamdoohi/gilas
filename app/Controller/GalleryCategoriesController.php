@@ -11,7 +11,6 @@ class GalleryCategoriesController extends AppController {
 
     public function admin_index() {
         $this->set('title_for_layout', 'مدیریت مجموعه گالری');
-        $this->paginate = array('limit' => 20);
         $galleryCategories = $this->paginate('GalleryCategory');
         for ($i = 0; $i < count($galleryCategories); $i++) {
             $galleryCategories[$i]['GalleryCategory']['imageCount'] = $this->_haveImage($galleryCategories[$i]['GalleryCategory']['id']);
@@ -32,7 +31,7 @@ class GalleryCategoriesController extends AppController {
                 $this->Session->setFlash('پوشه تصاویر مجموعه با موفقیت ساخته شد.', 'message_1', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
             } else {
-                $this->Session->setFlash('خطای شماره 13 - اطلاعات وارد شده معتبر نمی باشد. لطفا به خطاهای سیستم دقت کرده و مجددا تلاش نمایید.', 'message', array('type' => 'error'));
+                $this->Session->setFlash(SettingsController::read('Error.Code-13'), 'message', array('type' => 'error'));
             }
         }
     }
@@ -42,7 +41,7 @@ class GalleryCategoriesController extends AppController {
         $this->GalleryCategory->id = $id;
 
         if (!$this->GalleryCategory->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
 
         $requestData = $this->GalleryCategory->read();
@@ -55,7 +54,7 @@ class GalleryCategoriesController extends AppController {
                 $this->Session->setFlash('مجموعه با موفقیت ویرایش شد', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('خطای شماره 13 - اطلاعات وارد شده معتبر نمی باشد. لطفا به خطاهای سیستم دقت کرده و مجددا تلاش نمایید.', 'message', array('type' => 'error'));
+                $this->Session->setFlash(SettingsController::read('Error.Code-13'), 'message', array('type' => 'error'));
             }
         } else {
             $this->set('parents', $this->GalleryCategory->generateTreeList());
@@ -65,14 +64,14 @@ class GalleryCategoriesController extends AppController {
 
     public function admin_delete($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->GalleryCategory->id = $id;
         if (!$this->GalleryCategory->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->_haveImage($id)) {
-            $this->Session->setFlash('خطای شماره 15 – امکان حذف به علت دارا بودن آیتم های زیر مجموعه وجود ندارد. لطفا ابتدا آیتم های زیر مجموعه را حذف نمایید!', 'message', array('type' => 'error'));
+            $this->Session->setFlash(SettingsController::read('Error.Code-15'), 'message', array('type' => 'error'));
             $this->redirect(array('action' => 'index', 'admin' => TRUE));
         }
         //$galleryCategory = $this->GalleryCategory->read();
@@ -85,11 +84,11 @@ class GalleryCategoriesController extends AppController {
 
     public function admin_publishGalleryCategory($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->GalleryCategory->id = $id;
         if (!$this->GalleryCategory->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->GalleryCategory->saveField('published', 1)) {
             $this->Session->setFlash('مجموعه گالری با موفقیت منتشر شد.', 'message', array('type' => 'success'));
@@ -99,11 +98,11 @@ class GalleryCategoriesController extends AppController {
 
     public function admin_unPublishGalleryCategory($id = NULL) {
         if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException('خطای شماره 12 - درخواست شما نا معتبر است و امکان بررسی آن وجود ندارد!');
+            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $this->GalleryCategory->id = $id;
         if (!$this->GalleryCategory->exists()) {
-            throw new NotFoundException('خطای شماره 14 – امکان انجام عملیات درخواستی بدلیل ارسال نادرست اطلاعات وجود ندارد!');
+            throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
         if ($this->GalleryCategory->saveField('published', 0)) {
             $this->Session->setFlash('مجموعه گالری با موفقیت از حالت انتشار خارج شد', 'message', array('type' => 'success'));

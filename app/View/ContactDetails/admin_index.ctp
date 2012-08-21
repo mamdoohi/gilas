@@ -39,4 +39,4 @@ if (!empty($contactDetails)) {
     <?php
 }
 ?>
-
+<?php echo $this->Filter->limitAndPaginate(); ?>

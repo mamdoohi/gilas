@@ -118,7 +118,50 @@ tr .mceFirst{
     margin-top: 14px !important;
 }
 
-.table th, .table td{
+.table th{
     text-align: center;
     vertical-align: middle;
+}
+span.gi {
+    color: #D7D7D7;
+    font-weight: bold;
+    margin: 0 2px;
+}
+a{
+    cursor: pointer;
+}
+.form-filter{
+    margin: 0;
+    margin-top: 10px;
+}
+.form-filter div{
+    float:right;
+}
+.form-filter label,.form-filter input,.form-filter select,.form-filter a{
+    display: inline-block;
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+}
+.form-filter select{
+    height: 28px !important;
+    font-size: 14px;
+}
+.form-filter input[type=text],.form-filter select{
+    width: 110px;
+}
+.page-limit select{
+    width: 50px;
+}
+.page-limit {
+    float: right;
+    margin: 18px 10px;
+}
+.pagination .pages {
+    display: inline-block;
+    padding-top: 6px;
+    vertical-align: top;
+}
+
+.form-filter .required label:after{
+    content: '';
 }

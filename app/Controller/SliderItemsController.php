@@ -11,7 +11,6 @@ class SliderItemsController extends AppController {
 
     public function admin_index() {
         $this->set('title_for_layout', 'مدیریت اسلایدر صفحه نخست');
-        $this->paginate = array('limit' => 20);
         $sliderItems = $this->paginate('SliderItem');
         $this->set(compact('sliderItems'));
     }
