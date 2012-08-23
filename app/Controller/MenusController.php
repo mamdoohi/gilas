@@ -15,7 +15,9 @@ class MenusController extends AppController {
         'published' => array('field' => 'Menu.published'),
         'menu_type_id' => array('field' => 'Menu.menu_type_id'),
     );
-
+    
+    public $helpers = array('AdminForm');
+    
     public $linkTypes = array(
             'Contents' => 'مطلب',
             'ContentCategories' => 'مجموعه مطالب',
@@ -144,75 +146,138 @@ class MenusController extends AppController {
  * @param string $id
  * @return void
  */
-	public function admin_delete($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
+	public function admin_delete() {
+	   
+	    $id = $this->request->data['id'];// we recieve id via posted data
+        
+		if ($this->request->is('post')) {
+		    $count = count($id);
+            if($count == 1){
+                $id = current($id);
+                $this->Menu->id = $id;
+                
+                if ($this->Menu->childCount($id)) {
+                    $this->Session->setFlash(SettingsController::read('Error.Code-12'), 'message', array('type' => 'error'));
+                }elseif ($this->Menu->delete()) {
+        			$this->Session->setFlash('گزینه منو با موفقیت حذف شد', 'message', array('type' => 'success'));
+        		}else{
+                    $this->Session->setFlash(SettingsController::read('Error.Code-16'), 'message', array('type' => 'error'));
+                }
+            }elseif($count > 1){
+                $countAffected = 0;
+                foreach($id as $i){
+                    $this->Menu->id = $i;
+                    if ($this->Menu->childCount($i)) {
+                        continue;
+                    }
+            		if ($this->Menu->delete()) {
+            			$countAffected ++ ;
+            		}
+                }
+                $this->Session->setFlash($countAffected .' مورد حذف گردید', 'message', array('type' => 'success'));
+            }
 		}
-		$this->Menu->id = $id;
-		if (!$this->Menu->exists()) {
-			throw new NotFoundException(SettingsController::read('Error.Code-14'));
-		}
-        if ($this->Menu->childCount($id)) {
-            $this->Session->setFlash(SettingsController::read('Error.Code-15'), 'message', array('type' => 'error'));
-            $this->redirect($this->referer());
-        }
-		if ($this->Menu->delete()) {
-			$this->flash('منو با موفقیت حذف شد.', array('action' => 'index'));
-		}
-		$this->flash(SettingsController::read('Error.Code-16'), array('action' => 'index'));
 		$this->redirect($this->referer());
 	}
     
-    /**
-     * Move item to up or down
-     * 
-     * @param mixed $id : item id
-     * @param string $type : up or down 
-     * @return void
-     */
-    public function admin_move($id, $type = 'Up'){
+/**
+ * Move item to up or down
+ * 
+ * @param mixed $id : item id
+ * @param string $type : up or down 
+ * @return void
+ */
+    public function admin_move(){
+        $id = $this->request->data['id'];
+        
+        $type = $this->request->data['type'];
         $type = ($type == 'Up')?'Up':'Down';
         // moveUp or moveDown
         $type  = 'move'.$type;
-        
         if($this->request->is('post')){
-            // moveUp or moveDown
-            if($this->Menu->{$type}($id)){
-                $this->Session->setFlash('گزینه منو با موفقیت ویرایش شد', 'message', array('type' => 'success'));
-            }else{
-                $this->Session->setFlash(SettingsController::read('Error.Code-16'), 'message', array('type' => 'error'));
+            $count = count($id);
+            if($count == 1){
+                $id = current($id);
+                // moveUp or moveDown
+                if($this->Menu->{$type}($id)){
+                    $this->Session->setFlash('گزینه منو با موفقیت ویرایش شد', 'message', array('type' => 'success'));
+                }else{
+                    $this->Session->setFlash(SettingsController::read('Error.Code-16'), 'message', array('type' => 'error'));
+                }
+            }elseif($count > 1){
+                $countAffected = 0;
+                foreach($id as $i){
+                    if($this->Menu->{$type}($i)){
+                        $countAffected ++;
+                    }
+                }
+                $this->Session->setFlash($countAffected .' گزینه منو با موفقیت ویرایش شد', 'message', array('type' => 'success'));
+            }
+            
+        }
+        $this->redirect($this->referer());
+    }
+    
+    public function admin_publishMenu() {
+        $id = $this->request->data['id'];
+        if ($this->request->is('post')) {
+             $count = count($id);
+            if($count == 1){
+                $id = current($id);
+                $this->Menu->id = $id;
+                
+                if($this->Menu->saveField('published', 1)){
+                    $this->Session->setFlash('منو با موفقیت منتشر شد', 'message', array('type' => 'success'));
+                }else{
+                    $this->Session->setFlash(SettingsController::read('Error.Code-16'), 'message', array('type' => 'error'));
+                }
+            }elseif($count > 1){
+                $countAffected = 0;
+                foreach($id as $i){
+                    $this->Menu->id = $i;
+                    if($this->Menu->saveField('published', 1)){
+                        $countAffected ++;
+                    }
+                }
+                $this->Session->setFlash($countAffected .' منو با موفقیت منتشر شد', 'message', array('type' => 'success'));
             }
         }
         $this->redirect($this->referer());
     }
     
-    public function admin_publishMenu($id = NULL) {
-        if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
+    public function admin_unPublishMenu(){
+        $id = $this->request->data['id'];
+        if ($this->request->is('post')) {
+             $count = count($id);
+            if($count == 1){
+                $id = current($id);
+                $this->Menu->id = $id;
+                
+                if($this->Menu->saveField('published', 0)){
+                    $this->Session->setFlash('منو با موفقیت از حالت انتشار خارج شد', 'message', array('type' => 'success'));
+                }else{
+                    $this->Session->setFlash(SettingsController::read('Error.Code-16'), 'message', array('type' => 'error'));
+                }
+            }elseif($count > 1){
+                $countAffected = 0;
+                foreach($id as $i){
+                    $this->Menu->id = $i;
+                    if($this->Menu->saveField('published', 0)){
+                        $countAffected ++;
+                    }
+                }
+                $this->Session->setFlash($countAffected .' منو با موفقیت از حالت انتشار خارج شد', 'message', array('type' => 'success'));
+            }
         }
-        $this->Menu->id = $id;
-        if (!$this->Menu->exists()) {
-            throw new NotFoundException(SettingsController::read('Error.Code-14'));
-        }
-        if ($this->Menu->saveField('published', 1)) {
-            $this->Session->setFlash('منو با موفقیت منتشر شد.', 'message', array('type' => 'success'));
-            $this->redirect($this->referer());
-        }
+        $this->redirect($this->referer());
     }
     
-    public function admin_unPublishMenu($id=NULL){
-        if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
-        }
-        $this->Menu->id = $id;
-        if (!$this->Menu->exists()) {
-            throw new NotFoundException(SettingsController::read('Error.Code-14'));
-        }
-        if ($this->Menu->saveField('published', 0)) {
-            $this->Session->setFlash('منو با موفقیت از حالت انتشار خارج شد.', 'message', array('type' => 'success'));
-            $this->redirect($this->referer());
-        }
-    }
+/**
+ * Return item array for current $menuTypeID
+ * 
+ * @param int $menuTypeID : ID in MenuType Model
+ * @return array
+ */
     public function getMenu($menuTypeID){
         return $this->Menu->find('threaded',array(
             'conditions' => array(
@@ -222,5 +287,21 @@ class MenusController extends AppController {
             'order' => 'lft ASC',
             'contain' => false,
         ));
+    }
+    
+/**
+ * choose action for given action via adminForm
+ * all sent data for admin form will be recieve by this action and this action choose requested action
+ * @return void
+ */
+    public function admin_dispatch(){
+        if(empty($this->request->data['action'])){
+            $this->Session->setFlash('اشکال در پردازش اطلاعات','alert',array('type' => 'error'));
+            $this->redirect($this->referer());
+        }
+        $action = $this->request->data['action'];
+        unset($this->request->data['action']);
+        //with prefix
+        $this->setAction('admin_'.$action);
     }
 }

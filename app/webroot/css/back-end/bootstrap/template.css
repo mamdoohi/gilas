@@ -131,8 +131,7 @@ a{
     cursor: pointer;
 }
 .form-filter{
-    margin: 0;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 .form-filter div{
     float:right;
@@ -164,4 +163,25 @@ a{
 
 .form-filter .required label:after{
     content: '';
+}
+#toolbar{
+    float:left;
+    display: inline-block;
+    list-style-type: none;
+}
+#toolbar li{
+    float:left;
+    margin: 0 5px;
+}
+#toolbar-menu{
+    display: inline-table;
+    width:100%;
+    clear: both;
+    border-bottom: solid 1px #EEEEEE;
+    margin: 20px 0;
+}
+#toolbar-menu .title{
+    float:right;
+    font-size: 20px;
+    font-weight: bold;
 }

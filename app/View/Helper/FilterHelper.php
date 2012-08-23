@@ -1,11 +1,42 @@
 <?php
 
+/**
+ * Filter Helper class used for filtering form in pages that must have pagination and limitation
+ * 
+ * @package     Gilas
+ * @author      Hamid Mamdoohi
+ * @copyright   2012
+ * @version     0.1
+ * @access      public
+ */
 class FilterHelper extends AppHelper{
+    
+/**
+ * Used Helpers
+ *
+ * @var array
+ */
     public $helpers = array('Html','Form','Paginator');
-    // hold Paginator->params
+
+/**
+ * Hold Paginator->params
+ * 
+ * @var array
+ */
     public $paginParams = array();
-    // hold action for form
+    
+/**
+  * Hold action for form
+  * 
+  * @var string
+  */
     public $action = null;
+    
+/**
+  * Hold class for form
+  * 
+  * @var string
+  */
     public $formClass = 'form-filter';
     
     public function __construct(View $view, $settings = array()) {
@@ -13,13 +44,13 @@ class FilterHelper extends AppHelper{
         $this->paginParams = $this->Paginator->params();
     }
     
-    /**
-     * use this method againest Form->create
-     * 
-     * @param mixed $model
-     * @param mixed $options
-     * @return
-     */
+/**
+ * use this method againest Form->create
+ * 
+ * @param mixed $model
+ * @param mixed $options
+ * @return
+ */
     public function create($model = null, $options = array()) {
         $options['type'] = 'get';           // use GET method in filtering form
         $options['class'] = $this->formClass ;  // use this class
@@ -27,13 +58,13 @@ class FilterHelper extends AppHelper{
         return $this->Form->create($model,$options);
     }
     
-    /**
-     * use this method againest Form->input
-     * 
-     * @param mixed $fieldName
-     * @param mixed $options
-     * @return
-     */
+/**
+ * use this method againest Form->input
+ * 
+ * @param mixed $fieldName
+ * @param mixed $options
+ * @return
+ */
     public function input($fieldName, $options = array()) {
         // because data sent with GET , we need indicate this index to set sent value
         if($this->paginParams['paramType'] == 'named'){
@@ -45,12 +76,12 @@ class FilterHelper extends AppHelper{
         return $this->Form->input($fieldName,$options);
     }
     
-    /**
-     * use this method againest Form->end
-     * 
-     * @param mixed $options
-     * @return
-     */
+/**
+ * use this method againest Form->end
+ * 
+ * @param mixed $options
+ * @return
+ */
     public function end($options = array()) {
         
         // must be use this link for erase all fields
@@ -71,11 +102,11 @@ class FilterHelper extends AppHelper{
         return $output;
     }
     
-    /**
-     * when paramType is named we must use script for sending data with named format 
-     * 
-     * @return script tag
-     */
+/**
+ * when paramType is named we must use script for sending data with named format 
+ * 
+ * @return script tag
+ */
     private function __namedScript(){
         $url = $this->__getUrl(false);
         
@@ -97,11 +128,11 @@ class FilterHelper extends AppHelper{
         return $this->Html->scriptBlock($script);
     }
     
-    /**
-     * Show select tag for choosing limit
-     * 
-     * @return select tag
-     */
+/**
+ * Show select tag for choosing limit
+ * 
+ * @return select tag
+ */
     public function paginLimit(){
         if(empty($this->paginParams['count'])){
             return;
@@ -129,11 +160,11 @@ class FilterHelper extends AppHelper{
         return $div.$this->__limitScript();
     } 
     
-    /**
-     * Script for paginLimit 
-     * 
-     * @return
-     */
+/**
+ * Script for paginLimit 
+ * 
+ * @return
+ */
     private function __limitScript(){
         $script = '';
         if($this->paginParams['paramType'] == 'named'){
@@ -166,11 +197,11 @@ class FilterHelper extends AppHelper{
         return $this->Html->scriptBlock("\$(function(){\$('#limit').change(function(){{$script}})})");
     }
     
-    /**
-     * Paginator Links
-     * 
-     * @return
-     */
+/**
+ * Paginator Links
+ * 
+ * @return
+ */
     public function paginator(){
         if($this->paginParams['pageCount'] <= 1){
             return;
@@ -191,23 +222,23 @@ class FilterHelper extends AppHelper{
         return $this->Html->div('pagination',$ul . $span);
     }
     
-    /**
-     * use this method for every page that want have limit and paginator
-     * 
-     * @return
-     */
+/**
+ * Use this method for every page that want have limit and paginator
+ * 
+ * @return
+ */
     public function limitAndPaginate(){
         return $this->Html->div('clearfix','').$this->paginLimit().$this->paginator();
     }
     
     
-    /**
-     * When paramType is named for scripts we must have appropiate url,
-     * this method return best url for our scripts
-     * 
-     * @param bool $withNamed, if we want have named params, set this true 
-     * @return url string
-     */
+/**
+ * When paramType is named for scripts we must have appropiate url,
+ * this method return best url for our scripts
+ * 
+ * @param bool $withNamed, if we want have named params, set this true 
+ * @return url string
+ */
     private function __getUrl($withNamed = false){
         $url =  Router::url();//get This url
         $url = substr($url,strpos('?',$url));//escape querystring
