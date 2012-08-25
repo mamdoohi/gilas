@@ -124,7 +124,8 @@ class MenusController extends AppController {
 			     $path = $this->Menu->getPath();
                  // levels starts with 0
                  $this->Menu->saveField('level',count($path) - 1 );
-                 
+                 // Update level of childrens
+                 $this->Menu->updateChildrenLevel();
 				$this->Session->setFlash('گزینه منو با موفقیت ویرایش شد', 'message', array('type' => 'success'));
                 $this->redirect(array('action' => 'index', 'admin' => TRUE));
 			} else {

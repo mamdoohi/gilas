@@ -89,5 +89,23 @@ class Menu extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+    
+/**
+ * Update children level for current row 
+ * 
+ * @return void
+ */
+    public function updateChildrenLevel(){
+        $this->recursive = -1;
+        $row = $this->read();
+        $children = $this->children(null,true);
+        if($children){
+            foreach($children as $child){
+                $this->id = $child['Menu']['id'];
+                $this->saveField('level',$row['Menu']['level'] + 1);
+                $this->updateChildrenLevel();
+            }
+        }
+    }
 
 }
